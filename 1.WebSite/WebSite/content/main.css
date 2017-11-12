@@ -1,0 +1,12 @@
+﻿.container {
+    padding-top: 20px;
+}
+
+.panel-default > .panel-heading {
+    background-color: #832b29;
+    color: #fff;
+}
+
+#chartProjection {
+    width: 100%;
+}

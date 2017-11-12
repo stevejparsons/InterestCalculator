@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Parmenion Test</title>
+
+    <link href="content/bootstrap.min.css" rel="stylesheet">
+    <link href="content/main.css" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="scripts/jquery-3.2.1.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/knockout-3.4.2.js"></script>
+    <script src="scripts/knockout.validation.min.js"></script>
+    <script src="scripts/Chart.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <form class="form-horizontal">
+            <div class="panel panel-default">
+                <div class="panel-heading">Please enter investment details</div>
+                <div class="panel-body">
+
+                    <div data-bind="visible: isFormError" class="alert alert-danger">
+                        Please correct any errors below
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputLumpSumInvestment" class="control-label col-xs-4">Lump sum investment (£)</label>
+                        <div class="col-sm-4 col-xs-8">
+                            <input data-bind="value: lumpSumInvestment" type="text" class="form-control" id="inputLumpSumInvestment" placeholder="Value (£)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputMonthlyInvestment" class="control-label col-xs-4">Monthly investment (£)</label>
+                        <div class="col-sm-4 col-xs-8">
+                            <input data-bind="value: monthlyInvestment" type="text" class="form-control" id="inputMonthlyInvestment" placeholder="Value (£)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputTargetValue" class="control-label col-xs-4">Target value (£)</label>
+                        <div class="col-sm-4 col-xs-8">
+                            <input data-bind="value: targetValue" type="text" class="form-control" id="inputTargetValue" placeholder="Value (£)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputTarget" class="control-label col-xs-4">Timescale (years)</label>
+                        <div class="col-sm-4 col-xs-8">
+                            <input data-bind="value: timeScale" type="text" class="form-control" id="inputTarget" placeholder="Value (years)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-offset-4">
+                            <div class="radio">
+                                <label>
+                                    <input data-bind="checked: riskLevel" type="radio" name="optionsRadios" id="optionsLowRisk" value="low" checked>
+                                    Low risk level
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-offset-4">
+                            <div class="radio">
+                                <label>
+                                    <input data-bind="checked: riskLevel" type="radio" name="optionsRadios" id="optionsMediumRisk" value="medium" checked>
+                                    Medium risk level
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-offset-4">
+                            <div class="radio">
+                                <label>
+                                    <input data-bind="checked: riskLevel" type="radio" name="optionsRadios" id="optionsHighRisk" value="high" checked>
+                                    High risk level
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-offset-4 col-xs-8">
+                            <button data-bind="click: displayGraph" type="button" class="btn btn-primary">Display graph</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div data-bind="visible: showGraph" class="panel panel-default">
+                <div class="panel-heading">Graph</div>
+                <div class="panel-body">
+
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <!--<div data-bind="visible: !isFormError">-->
+                            <canvas id="chartProjection"></canvas>
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <script src="Scripts/main.js"></script>
+</body>
+</html>
