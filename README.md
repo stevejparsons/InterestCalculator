@@ -1,10 +1,10 @@
-# parmenion test
+# Parmenion Test
 
 ## To get it running
 
 It's a Visual Studio 2015 solution. To run it you'll need to right click the solution, select Set Startup Projects... choose Multiple startup projects, and ensure that both the website and webservice are set to start. 
 
-## Follow Up Questions
+## Follow up questions
 
 1. How long did you spend on the code test?
 
