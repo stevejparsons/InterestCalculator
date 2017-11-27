@@ -98,12 +98,13 @@ namespace BusinessLayer.Tests
 
             var wideBoundLowerSeries = calculation.WideBoundLowerSeries.ToList();
 
-            Assert.AreEqual(5, wideBoundLowerSeries.Count);
-            Assert.AreEqual(1.1m, wideBoundLowerSeries[0]);
-            Assert.AreEqual(1.2m, wideBoundLowerSeries[1]);
-            Assert.AreEqual(1.3m, wideBoundLowerSeries[2]);
-            Assert.AreEqual(1.4m, wideBoundLowerSeries[3]);
-            Assert.AreEqual(1.5m, wideBoundLowerSeries[4]);
+            Assert.AreEqual(6, wideBoundLowerSeries.Count);
+            Assert.AreEqual(1.0m, wideBoundLowerSeries[0]);
+            Assert.AreEqual(1.1m, wideBoundLowerSeries[1]);
+            Assert.AreEqual(1.2m, wideBoundLowerSeries[2]);
+            Assert.AreEqual(1.3m, wideBoundLowerSeries[3]);
+            Assert.AreEqual(1.4m, wideBoundLowerSeries[4]);
+            Assert.AreEqual(1.5m, wideBoundLowerSeries[5]);
         }
 
         [TestMethod]
@@ -115,12 +116,13 @@ namespace BusinessLayer.Tests
 
             var narrowBoundLowerSeries = calculation.NarrowBoundLowerSeries.ToList();
 
-            Assert.AreEqual(5, narrowBoundLowerSeries.Count);
-            Assert.AreEqual(2.1m, narrowBoundLowerSeries[0]);
-            Assert.AreEqual(2.2m, narrowBoundLowerSeries[1]);
-            Assert.AreEqual(2.3m, narrowBoundLowerSeries[2]);
-            Assert.AreEqual(2.4m, narrowBoundLowerSeries[3]);
-            Assert.AreEqual(2.5m, narrowBoundLowerSeries[4]);
+            Assert.AreEqual(6, narrowBoundLowerSeries.Count);
+            Assert.AreEqual(2.0m, narrowBoundLowerSeries[0]);
+            Assert.AreEqual(2.1m, narrowBoundLowerSeries[1]);
+            Assert.AreEqual(2.2m, narrowBoundLowerSeries[2]);
+            Assert.AreEqual(2.3m, narrowBoundLowerSeries[3]);
+            Assert.AreEqual(2.4m, narrowBoundLowerSeries[4]);
+            Assert.AreEqual(2.5m, narrowBoundLowerSeries[5]);
         }
 
         [TestMethod]
@@ -132,12 +134,13 @@ namespace BusinessLayer.Tests
 
             var narrowBoundUpperSeries = calculation.NarrowBoundUpperSeries.ToList();
 
-            Assert.AreEqual(5, narrowBoundUpperSeries.Count);
-            Assert.AreEqual(3.1m, narrowBoundUpperSeries[0]);
-            Assert.AreEqual(3.2m, narrowBoundUpperSeries[1]);
-            Assert.AreEqual(3.3m, narrowBoundUpperSeries[2]);
-            Assert.AreEqual(3.4m, narrowBoundUpperSeries[3]);
-            Assert.AreEqual(3.5m, narrowBoundUpperSeries[4]);
+            Assert.AreEqual(6, narrowBoundUpperSeries.Count);
+            Assert.AreEqual(3.0m, narrowBoundUpperSeries[0]);
+            Assert.AreEqual(3.1m, narrowBoundUpperSeries[1]);
+            Assert.AreEqual(3.2m, narrowBoundUpperSeries[2]);
+            Assert.AreEqual(3.3m, narrowBoundUpperSeries[3]);
+            Assert.AreEqual(3.4m, narrowBoundUpperSeries[4]);
+            Assert.AreEqual(3.5m, narrowBoundUpperSeries[5]);
         }
 
         [TestMethod]
@@ -149,12 +152,13 @@ namespace BusinessLayer.Tests
 
             var wideBoundUpperSeries = calculation.WideBoundUpperSeries.ToList();
 
-            Assert.AreEqual(5, wideBoundUpperSeries.Count);
-            Assert.AreEqual(4.1m, wideBoundUpperSeries[0]);
-            Assert.AreEqual(4.2m, wideBoundUpperSeries[1]);
-            Assert.AreEqual(4.3m, wideBoundUpperSeries[2]);
-            Assert.AreEqual(4.4m, wideBoundUpperSeries[3]);
-            Assert.AreEqual(4.5m, wideBoundUpperSeries[4]);
+            Assert.AreEqual(6, wideBoundUpperSeries.Count);
+            Assert.AreEqual(4.0m, wideBoundUpperSeries[0]);
+            Assert.AreEqual(4.1m, wideBoundUpperSeries[1]);
+            Assert.AreEqual(4.2m, wideBoundUpperSeries[2]);
+            Assert.AreEqual(4.3m, wideBoundUpperSeries[3]);
+            Assert.AreEqual(4.4m, wideBoundUpperSeries[4]);
+            Assert.AreEqual(4.5m, wideBoundUpperSeries[5]);
         }
 
         [TestMethod]
@@ -166,12 +170,13 @@ namespace BusinessLayer.Tests
 
             var years = calculation.Years.ToList();
 
-            Assert.AreEqual(5, years.Count);
+            Assert.AreEqual(6, years.Count);
             Assert.AreEqual(0, years[0]);
             Assert.AreEqual(1, years[1]);
             Assert.AreEqual(2, years[2]);
             Assert.AreEqual(3, years[3]);
             Assert.AreEqual(4, years[4]);
+            Assert.AreEqual(5, years[5]);
         }
 
         [TestMethod]
@@ -183,12 +188,13 @@ namespace BusinessLayer.Tests
 
             var targetValue = calculation.TargetValue.ToList();
 
-            Assert.AreEqual(5, targetValue.Count);
+            Assert.AreEqual(6, targetValue.Count);
             Assert.AreEqual(2000m, targetValue[0]);
             Assert.AreEqual(2000m, targetValue[1]);
             Assert.AreEqual(2000m, targetValue[2]);
             Assert.AreEqual(2000m, targetValue[3]);
             Assert.AreEqual(2000m, targetValue[4]);
+            Assert.AreEqual(2000m, targetValue[5]);
         }
 
         private void SetupCalculateResults()
@@ -197,31 +203,31 @@ namespace BusinessLayer.Tests
                 It.Is<decimal>(d => (d == 1000m)),
                 It.Is<decimal>(d => (d == 100m)),
                 It.Is<decimal>(d => (d == 0m))))
-                    .Returns(new List<decimal>() { 0.1m, 0.2m, 0.3m, 0.4m, 0.5m });
+                    .Returns(new List<decimal>() { 0.0m, 0.1m, 0.2m, 0.3m, 0.4m, 0.5m });
 
             _interestCalculatorMock.Setup(m => m.Calculate(
                 It.Is<decimal>(d => (d == 1000m)),
                 It.Is<decimal>(d => (d == 100m)),
                 It.Is<decimal>(d => (d == 1m))))
-                    .Returns(new List<decimal>() { 1.1m, 1.2m, 1.3m, 1.4m, 1.5m });
+                    .Returns(new List<decimal>() { 1.0m, 1.1m, 1.2m, 1.3m, 1.4m, 1.5m });
 
             _interestCalculatorMock.Setup(m => m.Calculate(
                 It.Is<decimal>(d => (d == 1000m)),
                 It.Is<decimal>(d => (d == 100m)),
                 It.Is<decimal>(d => (d == 2m))))
-                    .Returns(new List<decimal>() { 2.1m, 2.2m, 2.3m, 2.4m, 2.5m });
+                    .Returns(new List<decimal>() { 2.0m, 2.1m, 2.2m, 2.3m, 2.4m, 2.5m });
 
             _interestCalculatorMock.Setup(m => m.Calculate(
                 It.Is<decimal>(d => (d == 1000m)),
                 It.Is<decimal>(d => (d == 100m)),
                 It.Is<decimal>(d => (d == 3m))))
-                    .Returns(new List<decimal>() { 3.1m, 3.2m, 3.3m, 3.4m, 3.5m });
+                    .Returns(new List<decimal>() { 3.0m, 3.1m, 3.2m, 3.3m, 3.4m, 3.5m });
 
             _interestCalculatorMock.Setup(m => m.Calculate(
                 It.Is<decimal>(d => (d == 1000m)),
                 It.Is<decimal>(d => (d == 100m)),
                 It.Is<decimal>(d => (d == 4m))))
-                    .Returns(new List<decimal>() { 4.1m, 4.2m, 4.3m, 4.4m, 4.5m });
+                    .Returns(new List<decimal>() { 4.0m, 4.1m, 4.2m, 4.3m, 4.4m, 4.5m });
         }
     }
 }

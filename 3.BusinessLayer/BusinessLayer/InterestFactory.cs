@@ -91,23 +91,23 @@ namespace BusinessLayer
             decimal narrowBoundPercentageLower, decimal targetValue)
         {
             var totalInvested = _interestCalculator.Calculate(lumpSumInvestment, monthlyInvestment, 0)
-                .Take(timescaleInYears).Last();
+                .Take(timescaleInYears + 1).Last();
 
             var wideBoundUpperSeries = _interestCalculator.Calculate(lumpSumInvestment, monthlyInvestment, wideBoundPercentageUpper)
-                .Take(timescaleInYears);
+                .Take(timescaleInYears + 1);
 
             var wideBoundLowerSeries = _interestCalculator.Calculate(lumpSumInvestment, monthlyInvestment, wideBoundPercentageLower)
-                .Take(timescaleInYears);
+                .Take(timescaleInYears + 1);
 
             var narrowBoundLowerSeries = _interestCalculator.Calculate(lumpSumInvestment, monthlyInvestment, narrowBoundPercentageLower)
-                .Take(timescaleInYears);
+                .Take(timescaleInYears + 1);
 
             var narrowBoundUpperSeries = _interestCalculator.Calculate(lumpSumInvestment, monthlyInvestment, narrowBoundPercentageUpper)
-                .Take(timescaleInYears);
+                .Take(timescaleInYears + 1);
 
-            var years = Enumerable.Range(0, timescaleInYears);
+            var years = Enumerable.Range(0, timescaleInYears + 1);
 
-            var targetYears = Enumerable.Repeat(targetValue, timescaleInYears);
+            var targetYears = Enumerable.Repeat(targetValue, timescaleInYears + 1);
 
             var response = new InterestResult(totalInvested, wideBoundUpperSeries, wideBoundLowerSeries, narrowBoundLowerSeries, narrowBoundUpperSeries, years, targetYears);
 
