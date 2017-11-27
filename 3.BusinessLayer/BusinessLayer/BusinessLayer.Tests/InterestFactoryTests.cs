@@ -28,7 +28,7 @@ namespace BusinessLayer.Tests
         [TestMethod]
         public void Make__ReturnsError_WhenLumpSumInvestment__IsLessThanZero()
         {
-            var result = _interestFactory.MakeCalculation(new WebService.Contract.CalculationRequestDto(-1, 1, 1, 4, 1, 3, 2, 10));
+            var result = _interestFactory.MakeCalculation(-1, 1, 1, 4, 1, 3, 2, 10);
 
             Assert.AreEqual(false, result.Success);
             Assert.AreEqual("LumpSumInvestment cannot be less than zero", result.ErrorMessage);
@@ -37,7 +37,7 @@ namespace BusinessLayer.Tests
         [TestMethod]
         public void Make__ReturnsError_WhenLumpSumInvestment__IsGreaterThan1000000000()
         {
-            var result = _interestFactory.MakeCalculation(new WebService.Contract.CalculationRequestDto(1000000001, 1, 1, 4, 1, 3, 2, 10));
+            var result = _interestFactory.MakeCalculation(1000000001, 1, 1, 4, 1, 3, 2, 10);
 
             Assert.AreEqual(false, result.Success);
             Assert.AreEqual("LumpSumInvestment cannot be greater than 1000000000", result.ErrorMessage);
@@ -46,7 +46,7 @@ namespace BusinessLayer.Tests
         [TestMethod]
         public void Make__ReturnsError_WhenMonthlyInvestment__IsLessThanZero()
         {
-            var result = _interestFactory.MakeCalculation(new WebService.Contract.CalculationRequestDto(1, -1, 1, 4, 1, 3, 2, 10));
+            var result = _interestFactory.MakeCalculation(1, -1, 1, 4, 1, 3, 2, 10);
 
             Assert.AreEqual(false, result.Success);
             Assert.AreEqual("MonthlyInvestment cannot be less than zero", result.ErrorMessage);
@@ -55,7 +55,7 @@ namespace BusinessLayer.Tests
         [TestMethod]
         public void Make__ReturnsError_WhenMonthlyInvestment__IsGreaterThan1000000000()
         {
-            var result = _interestFactory.MakeCalculation(new WebService.Contract.CalculationRequestDto(1, 1000000001, 1, 4, 1, 3, 2, 10));
+            var result = _interestFactory.MakeCalculation(1, 1000000001, 1, 4, 1, 3, 2, 10);
 
             Assert.AreEqual(false, result.Success);
             Assert.AreEqual("MonthlyInvestment cannot be greater than 1000000000", result.ErrorMessage);
@@ -68,7 +68,7 @@ namespace BusinessLayer.Tests
 
             _interestCalculatorMock.Setup(m => m.Calculate(It.IsAny<decimal>(), It.IsAny<decimal>(), It.IsAny<decimal>())).Returns(interestData);
 
-            var result = _interestFactory.MakeCalculation(new WebService.Contract.CalculationRequestDto(1000, 100, 5, 4, 1, 3, 2, 10));
+            var result = _interestFactory.MakeCalculation(1000, 100, 5, 4, 1, 3, 2, 10);
 
             _interestCalculatorMock.Verify(m => m.Calculate(1000, 100, 4), Times.Once);
             _interestCalculatorMock.Verify(m => m.Calculate(1000, 100, 1), Times.Once);

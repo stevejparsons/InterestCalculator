@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebService.Contract;
 
 namespace BusinessLayer
 {
@@ -17,97 +16,102 @@ namespace BusinessLayer
             _interestCalculator = interestCalculator;
         }
 
-        public CalculationResponseDto MakeCalculation(CalculationRequestDto request)
+        public IInterestResult MakeCalculation(decimal lumpSumInvestment, decimal monthlyInvestment, int timescaleInYears,
+            decimal wideBoundPercentageUpper, decimal wideBoundPercentageLower, decimal narrowBoundPercentageUpper,
+            decimal narrowBoundPercentageLower, decimal targetValue)
         {
-            if (request.LumpSumInvestment < 0)
-                return new CalculationResponseDto("LumpSumInvestment cannot be less than zero");
+            if (lumpSumInvestment < 0)
+                return new InterestResult("LumpSumInvestment cannot be less than zero");
 
-            if (request.LumpSumInvestment > 1000000000)
-                return new CalculationResponseDto("LumpSumInvestment cannot be greater than 1000000000");
+            if (lumpSumInvestment > 1000000000)
+                return new InterestResult("LumpSumInvestment cannot be greater than 1000000000");
 
-            if (request.MonthlyInvestment < 0)
-                return new CalculationResponseDto("MonthlyInvestment cannot be less than zero");
+            if (monthlyInvestment < 0)
+                return new InterestResult("MonthlyInvestment cannot be less than zero");
 
-            if (request.MonthlyInvestment > 1000000000)
-                return new CalculationResponseDto("MonthlyInvestment cannot be greater than 1000000000");
+            if (monthlyInvestment > 1000000000)
+                return new InterestResult("MonthlyInvestment cannot be greater than 1000000000");
 
-            if (request.NarrowBoundPercentageLower < -100m)
-                return new CalculationResponseDto("NarrowBoundPercentageLower cannot be less than -100");
+            if (narrowBoundPercentageLower < -100m)
+                return new InterestResult("NarrowBoundPercentageLower cannot be less than -100");
 
-            if (request.NarrowBoundPercentageLower > 100m)
-                return new CalculationResponseDto("NarrowBoundPercentageLower cannot be great than 100");
+            if (narrowBoundPercentageLower > 100m)
+                return new InterestResult("NarrowBoundPercentageLower cannot be great than 100");
 
-            if (request.NarrowBoundPercentageUpper < -100m)
-                return new CalculationResponseDto("NarrowBoundPercentageUpper cannot be less than -100");
+            if (narrowBoundPercentageUpper < -100m)
+                return new InterestResult("NarrowBoundPercentageUpper cannot be less than -100");
 
-            if (request.NarrowBoundPercentageUpper > 100m)
-                return new CalculationResponseDto("NarrowBoundPercentageUpper cannot be great than 100");
+            if (narrowBoundPercentageUpper > 100m)
+                return new InterestResult("NarrowBoundPercentageUpper cannot be great than 100");
 
-            if (request.TimescaleInYears < 1)
-                return new CalculationResponseDto("TimescaleInYears cannot be less than 1");
+            if (timescaleInYears < 1)
+                return new InterestResult("TimescaleInYears cannot be less than 1");
 
-            if (request.TimescaleInYears > 100)
-                return new CalculationResponseDto("TimescaleInYears cannot be greater than 100");
+            if (timescaleInYears > 100)
+                return new InterestResult("TimescaleInYears cannot be greater than 100");
 
-            if (request.TargetValue < 0)
-                return new CalculationResponseDto("TargetValue cannot be less than zero");
+            if (targetValue < 0)
+                return new InterestResult("TargetValue cannot be less than zero");
 
-            if (request.TargetValue > 1000000000)
-                return new CalculationResponseDto("TargetValue cannot be greater than 1000000000");
+            if (targetValue > 1000000000)
+                return new InterestResult("TargetValue cannot be greater than 1000000000");
 
-            if (request.WideBoundPercentageLower < -100m)
-                return new CalculationResponseDto("WideBoundPercentageLower cannot be lower than -100");
+            if (wideBoundPercentageLower < -100m)
+                return new InterestResult("WideBoundPercentageLower cannot be lower than -100");
 
-            if (request.WideBoundPercentageLower > 100m)
-                return new CalculationResponseDto("WideBoundPercentageLower cannot be greater than 100");
+            if (wideBoundPercentageLower > 100m)
+                return new InterestResult("WideBoundPercentageLower cannot be greater than 100");
 
-            if (request.WideBoundPercentageUpper < -100m)
-                return new CalculationResponseDto("WideBoundPercentageUpper cannot be lower than -100");
+            if (wideBoundPercentageUpper < -100m)
+                return new InterestResult("WideBoundPercentageUpper cannot be lower than -100");
 
-            if (request.WideBoundPercentageUpper > 100m)
-                return new CalculationResponseDto("WideBoundPercentageUpper cannot be greater than 100");
+            if (wideBoundPercentageUpper > 100m)
+                return new InterestResult("WideBoundPercentageUpper cannot be greater than 100");
 
-            if (request.NarrowBoundPercentageLower >= request.NarrowBoundPercentageUpper)
-                return new CalculationResponseDto("NarrowBoundPercentageLower must be less than NarrowBoundPercentageUpper");
+            if (narrowBoundPercentageLower >= narrowBoundPercentageUpper)
+                return new InterestResult("NarrowBoundPercentageLower must be less than NarrowBoundPercentageUpper");
 
-            if (request.WideBoundPercentageLower >= request.WideBoundPercentageUpper)
-                return new CalculationResponseDto("WideBoundPercentageLower must be less than WideBoundPercentageUpper");
+            if (wideBoundPercentageLower >= wideBoundPercentageUpper)
+                return new InterestResult("WideBoundPercentageLower must be less than WideBoundPercentageUpper");
 
-            if (request.WideBoundPercentageLower >= request.NarrowBoundPercentageLower)
-                return new CalculationResponseDto("WideBoundPercentageLower must be less than NarrowBoundPercentageLower");
+            if (wideBoundPercentageLower >= narrowBoundPercentageLower)
+                return new InterestResult("WideBoundPercentageLower must be less than NarrowBoundPercentageLower");
 
-            if (request.NarrowBoundPercentageUpper >= request.WideBoundPercentageUpper)
-                return new CalculationResponseDto("NarrowBoundPercentageUpper must be less than WideBoundPercentageUpper");
+            if (narrowBoundPercentageUpper >= wideBoundPercentageUpper)
+                return new InterestResult("NarrowBoundPercentageUpper must be less than WideBoundPercentageUpper");
 
-            var response = CreateResponse(request);
+            var response = CreateResult(lumpSumInvestment, monthlyInvestment, timescaleInYears, wideBoundPercentageUpper, 
+                wideBoundPercentageLower, narrowBoundPercentageUpper, narrowBoundPercentageLower, targetValue);
 
             return response;
         }
 
-        private CalculationResponseDto CreateResponse(CalculationRequestDto request)
+        private InterestResult CreateResult(decimal lumpSumInvestment, decimal monthlyInvestment, int timescaleInYears,
+            decimal wideBoundPercentageUpper, decimal wideBoundPercentageLower, decimal narrowBoundPercentageUpper,
+            decimal narrowBoundPercentageLower, decimal targetValue)
         {
-            var totalInvested = _interestCalculator.Calculate(request.LumpSumInvestment, request.MonthlyInvestment, 0)
-                .Take(request.TimescaleInYears).Last();
+            var totalInvested = _interestCalculator.Calculate(lumpSumInvestment, monthlyInvestment, 0)
+                .Take(timescaleInYears).Last();
 
-            var wideBoundUpperSeries = _interestCalculator.Calculate(request.LumpSumInvestment, request.MonthlyInvestment, request.WideBoundPercentageUpper)
-                .Take(request.TimescaleInYears);
+            var wideBoundUpperSeries = _interestCalculator.Calculate(lumpSumInvestment, monthlyInvestment, wideBoundPercentageUpper)
+                .Take(timescaleInYears);
 
-            var wideBoundLowerSeries = _interestCalculator.Calculate(request.LumpSumInvestment, request.MonthlyInvestment, request.WideBoundPercentageLower)
-                .Take(request.TimescaleInYears);
+            var wideBoundLowerSeries = _interestCalculator.Calculate(lumpSumInvestment, monthlyInvestment, wideBoundPercentageLower)
+                .Take(timescaleInYears);
 
-            var narrowBoundLowerSeries = _interestCalculator.Calculate(request.LumpSumInvestment, request.MonthlyInvestment, request.NarrowBoundPercentageLower)
-                .Take(request.TimescaleInYears);
+            var narrowBoundLowerSeries = _interestCalculator.Calculate(lumpSumInvestment, monthlyInvestment, narrowBoundPercentageLower)
+                .Take(timescaleInYears);
 
-            var narrowBoundUpperSeries = _interestCalculator.Calculate(request.LumpSumInvestment, request.MonthlyInvestment, request.NarrowBoundPercentageUpper)
-                .Take(request.TimescaleInYears);
+            var narrowBoundUpperSeries = _interestCalculator.Calculate(lumpSumInvestment, monthlyInvestment, narrowBoundPercentageUpper)
+                .Take(timescaleInYears);
 
-            var years = Enumerable.Range(1, request.TimescaleInYears);
+            var years = Enumerable.Range(0, timescaleInYears);
 
-            var targetYears = Enumerable.Repeat(request.TargetValue, request.TimescaleInYears);
+            var targetYears = Enumerable.Repeat(targetValue, timescaleInYears);
 
-            var respone = new CalculationResponseDto(totalInvested, wideBoundUpperSeries, wideBoundLowerSeries, narrowBoundLowerSeries, narrowBoundUpperSeries, years, targetYears);
+            var response = new InterestResult(totalInvested, wideBoundUpperSeries, wideBoundLowerSeries, narrowBoundLowerSeries, narrowBoundUpperSeries, years, targetYears);
 
-            return respone;
+            return response;
         }
     }
 }

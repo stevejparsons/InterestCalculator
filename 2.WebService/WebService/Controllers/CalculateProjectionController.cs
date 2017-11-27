@@ -21,9 +21,23 @@ namespace WebService.Controllers
         [HttpPost]
         public CalculationResponseDto CalculateProjection(CalculationRequestDto request)
         {
-            var response = _factory.MakeCalculation(request);
+            var result = _factory.MakeCalculation(request.LumpSumInvestment, request.MonthlyInvestment, request.TimescaleInYears,
+                request.WideBoundPercentageUpper, request.WideBoundPercentageLower, request.NarrowBoundPercentageUpper, 
+                request.NarrowBoundPercentageLower, request.TargetValue);
 
-            return response;
+            if (result.Success)
+            {
+                var response = new CalculationResponseDto(result.TotalInvested, result.WideBoundUpperSeries, result.WideBoundLowerSeries,
+                    result.NarrowBoundLowerSeries, result.NarrowBoundUpperSeries, result.Years, result.TargetValue);
+
+                return response;
+            }
+            else
+            {
+                var response = new CalculationResponseDto(result.ErrorMessage);
+
+                return response;
+            }
         }
     }
 }
