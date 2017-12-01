@@ -42,13 +42,8 @@
   <ItemGroup>
     <Compile Include="IInterestCalculator.cs" />
     <Compile Include="IInterestFactory.cs" />
+    <Compile Include="IInterestResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\2.WebService\WebService.Contract\WebService.Contract.csproj">
-      <Project>{8EC29E41-727A-4B83-BAF3-8D635F98AB56}</Project>
-      <Name>WebService.Contract</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

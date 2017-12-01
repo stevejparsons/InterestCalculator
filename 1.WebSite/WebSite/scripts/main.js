@@ -35,24 +35,28 @@ var viewModel = {
     showGraph: ko.observable(false),
     lumpSumInvestment: ko.observable(10000).extend(
         {
+            required: { params: true, message: "Please provide a lump sum investment" },
             number: { params: true, message: "Lump sum investment must be a number" },
             min: { params: 0, message: "Lump sum investment must not be a negative number" },
             max: { params: 1000000000, message: "Lump sum investment cannot be greater than 1000000000" }
         }),
     monthlyInvestment: ko.observable(250).extend(
         {
+            required: { params: true, message: "Please provide a monthly investment" },
             number: { params: true, message: "Monthly investment must be a number" },
             min: { params: 0, message: "Monthly investment must not be a negative number" },
             max: { params: 1000000000, message: "Monthly investment cannot be greater than 1000000000" }
         }),
     targetValue: ko.observable(45000).extend(
         {
+            required: { params: true, message: "Please provide a target investment" },
             number: { params: true, message: "Target investment must be a number" },
             min: { params: 0, message: "Target investment must not be a negative number" },
             max: { params: 1000000000, message: "Target investment cannot be greater than 1000000000" }
         }),
     timeScale: ko.observable(10).extend(
         {
+            required: { params: true, message: "Please provide a timescale" },
             digit: { params: true, message: "Timescale should be a whole number" },
             min: { params: 1, message: "Timescale must be at least 1" },
             max: { params: 100, message: "Timescale cannot be greater than 100" }
@@ -116,28 +120,28 @@ function displayGraph(data) {
             fill: false,
             label: 'Target value'
         }, {
-            backgroundColor: Color('#ff0000').alpha(0.5).rgbString(),
+            backgroundColor: '#7fff7f', 
+            borderColor: '#00ff00',
+            data: data.NarrowBoundUpperSeries,
+            label: 'Narrow bound upper',
+            fill: false,
+        }, {
+            backgroundColor: '#7fff7f', 
+            borderColor: '#00ff00',
+            data: data.NarrowBoundLowerSeries,
+            label: 'Narrow bound lower',
+            fill: '-1'
+        }, {
+            backgroundColor: '#ff7f7f', 
             borderColor: '#ff0000',
             data: data.WideBoundUpperSeries,
             fill: false,
             label: 'Wide bound upper'
         }, {
-            backgroundColor: Color('#ff0000').alpha(0.5).rgbString(),
+            backgroundColor: '#ff7f7f', 
             borderColor: '#ff0000',
             data: data.WideBoundLowerSeries,
             label: 'Wide bound lower',
-            fill: '-1'
-        }, {
-            backgroundColor: Color('#00ff00').alpha(0.5).rgbString(),
-            borderColor: '#00ff00',
-            data: data.NarrowBoundUpperSeries,
-            label: 'Narrow bound lower',
-            fill: false,
-        }, {
-            backgroundColor: Color('#00ff00').alpha(0.5).rgbString(),
-            borderColor: '#00ff00',
-            data: data.NarrowBoundLowerSeries,
-            label: 'Narrow bound lower',
             fill: '-1'
         }]
     };

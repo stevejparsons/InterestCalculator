@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebService.Contract;
 
 namespace BusinessLayer
 {
@@ -14,6 +13,8 @@ namespace BusinessLayer
 
         public IEnumerable<decimal> Calculate(decimal lumpSumInvestment, decimal monthlyInvestment, decimal interestRatePercentage)
         {
+            yield return Math.Round(lumpSumInvestment, 2, MidpointRounding.AwayFromZero);
+
             var decimalInterestRate = 1m + (interestRatePercentage / 100m);
 
             var monthlyInterestRate = (decimal)(Math.Pow((double)decimalInterestRate, (1.0 / MonthsInYear)));

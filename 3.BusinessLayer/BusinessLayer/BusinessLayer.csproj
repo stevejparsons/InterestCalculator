@@ -42,13 +42,10 @@
   <ItemGroup>
     <Compile Include="InterestCalculator.cs" />
     <Compile Include="InterestFactory.cs" />
+    <Compile Include="InterestResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\2.WebService\WebService.Contract\WebService.Contract.csproj">
-      <Project>{8ec29e41-727a-4b83-baf3-8d635f98ab56}</Project>
-      <Name>WebService.Contract</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BusinessLayer.Contract\BusinessLayer.Contract.csproj">
       <Project>{ec40d6b0-7ff4-42b7-9a11-deba25409cb2}</Project>
       <Name>BusinessLayer.Contract</Name>
