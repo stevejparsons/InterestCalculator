@@ -1,4 +1,4 @@
-# Parmenion Test
+# Interest Calculator
 
 ## To get it running
 
